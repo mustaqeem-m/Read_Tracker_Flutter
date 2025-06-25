@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:reader_tracker/Network/network.dart';
 import 'package:reader_tracker/Pages/book_details.dart';
 import 'package:reader_tracker/Pages/favorite_screen.dart';
 import 'package:reader_tracker/Pages/home_screen.dart';
 import 'package:reader_tracker/Pages/saved_screen.dart';
-import 'package:reader_tracker/models/book.dart';
 
 void main() {
   runApp(const MyApp());
