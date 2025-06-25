@@ -81,5 +81,38 @@ Then:
  toString() => return a string describing the object , eg. Instance of 'Class' , we can override the toString method!
 ```
 
-# Branching 
+# Routing
+
+```dart
+Navigator.push(context, MaterialPageRoute(builder: (context) => BookDetailsScreen()));
+```
+
+# Named Routing 
+
+```dart
+initialRoute: '/',
+      routes: {
+        '/home' : ((context) => HomeScreen()),
+        '/saved' : ((context) => SavedScreen()),
+        '/favorites' : ((context) => FavoriteScreen()),
+        '/details' : ((context) => BookDetailsScreen()),
+      },
+
+```
+
+### Arguments in Named routing 
+
+```dart
+GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/details',
+                      arguments: BookDetailsArgument(itemBook: book));
+                    }),
+
+  In Flutter, when navigating using Navigator.pushNamed, we can pass data to the next screen using the arguments parameter. On the destination screen, we retrieve it with ModalRoute.of(context)?.settings.arguments. For clean data transfer, we often wrap this data in a model class like BookDetailsArgument.
+```
+
+
+
+
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reader_tracker/Network/network.dart';
+import 'package:reader_tracker/Pages/book_details.dart';
 import 'package:reader_tracker/Pages/favorite_screen.dart';
 import 'package:reader_tracker/Pages/home_screen.dart';
 import 'package:reader_tracker/Pages/saved_screen.dart';
@@ -21,6 +22,13 @@ class MyApp extends StatelessWidget {
       
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
       ),
+      initialRoute: '/',
+      routes: {
+        '/home' : ((context) => HomeScreen()),
+        '/saved' : ((context) => SavedScreen()),
+        '/favorites' : ((context) => FavoriteScreen()),
+        '/details' : ((context) => BookDetailsScreen())
+      },
       home: const MyHomePage(),
     );
   }
