@@ -113,6 +113,105 @@ GestureDetector(
 ```
 
 
+# Database 
+
+- a structure which allows us to save some SOrt of information
+
+
+
+# What is SQFLite?
+- It allows us to:
+
+- Store structured data on the user’s device
+
+- Perform `CRUD`: Create, Read, Update, Delete
+
+- Use SQL queries directly inside Flutter apps
+
+- Keep data offline, permanently — even if the app closed
+
+# Path
+
+- The Path platform provides common operation for manipulating paths : joining , splitting , normalizing etc.
+
+# PrivateConstructor
+
+- helps to create instance of a class only under a specific condition such as factory method within a class
+
+- A `private constructor `restricts class instantiation from outside, allowing object creation only from within the class itself — commonly used with factory constructors, singletons, or controlled instance creation.
+
+- Creates   `ONE object of DataBaseHelper`, called instance.
+
+- Prevents creating multiple objects that might create multiple DB connections (which is bad).
+
+- `Private constructor (_privateContructor) ensures no one from outside can create another object using DataBaseHelper().`
+
+# Procedure
+
+- we're creating a custom helper class DataBaseHelper to control and access our local SQLite database only in one way — using SQFLite.
+
+```dart
+- class DataBaseHelper {} => we are creating a class to manage all DB operations.
+
+- DataBaseHelper._privateContructor(); -> this make our constructor private , forces singleton
+
+- static final DataBaseHelper instance = DataBaseHelper._privateContructor();
+  - singleton Instance => Singleton pattern: one object shared across the app.
+
+  what-s hapning ? 
+  - Creates only ONE object of DataBaseHelper, called instance.
+
+  - Prevents creating multiple objects that might create multiple DB connections (which is bad).
+
+  - Private constructor (_privateContructor) ensures no one from outside can create another object using DataBaseHelper().
+
+- static Database? _dataBase;
+  - This is the actual sqflite database object — it starts as null.
+
+  - It holds the actual database connection object.
+
+  - static: shared by all objects of the class.
+
+  - Database?: it’s nullable — starts as null.
+
+- Future<Database> get dataBase async {
+    _dataBase ??= await _initDatabase() ;  
+    return _dataBase!;
+  }
+  - If _dataBase is null, it initializes it.
+
+  - If already initialized, just returns it.
+
+  - ??= means: if null, assign right side.
+
+  - This ensures lazy loading and single init.
+
+- _initDatabase() async {
+    //device/data/datasename.db
+    String path = join(await getDatabasesPath(), _dataBaseName);
+    return await openDatabase(
+      path,
+      version: _dataBaseVersion,
+      onCreate: _onCreate,
+    );
+  }
+
+  - 
+- getDatabasesPath() is provided by sqflite
+
+It returns the folder path used by Android/iOS to store SQLite file
+
+eg./data/user/0/com.example.reader_tracker/databases
+
+join(await getDatabasesPath(), _dataBaseName);
+
+It becomes:
+
+/data/user/0/com.example.reader_tracker/databases/books_dataBase.db
+
+- openDatabase: Opens or creates the DB at that path.
+
+- onCreate: Triggers when DB is created for first time.
 
 
 
