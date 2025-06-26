@@ -212,6 +212,17 @@ It becomes:
 - openDatabase: Opens or creates the DB at that path.
 
 - onCreate: Triggers when DB is created for first time.
+```
 
+# Future builder 
+
+- `snapshot` = Status Report of the Future
+- It contains four important things:
+
+- Property	What it tells you
+- snapshot.connectionState	Is the future still loading? Done?
+- snapshot.hasData	Is there real data in it?
+- snapshot.hasError	Did something go wrong?
+- snapshot.data	The actual result of your future
 
 
