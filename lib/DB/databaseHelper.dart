@@ -76,12 +76,16 @@ class DataBaseHelper {
     where: 'id=?',
     whereArgs: [id]);
   }
-  
-  Future<List<Book>> getFavorite() async{
-    Database db = await instance.dataBase;
 
-    var favBooks = await db.query(_tableName);
-    return favBooks.isNotEmpty ? favBooks.map((book) => Book.fromJsonDatabase(book)).toList() 
-    : [];
+   Future<List<Book>> getFavorites() async {
+    Database db = await instance.dataBase;
+    var favBooks =
+        await db.query(_tableName, where: 'favorite = ?', whereArgs: [1]);
+
+    return favBooks.isNotEmpty
+        ? favBooks.map((bookData) => Book.fromJsonDatabase(bookData)).toList()
+        : [];
   }
+
+  getFavorite() {}
 }

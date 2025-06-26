@@ -14,7 +14,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: FutureBuilder(future: DataBaseHelper.instance.getFavorite(), 
+      body: FutureBuilder(future: DataBaseHelper.instance.getFavorites(), 
       builder: (context,snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting){
           return Center(

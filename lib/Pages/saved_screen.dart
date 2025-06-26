@@ -42,9 +42,19 @@ class _SavedScreenState extends State<SavedScreen> {
                     children: [
                       Text(book.authors.join(", ")),
                       ElevatedButton.icon(onPressed: () async{
+                        // book.isFavorite = !book.isFavorite;
                         await DataBaseHelper.instance.toggleFavoriteFlag(book.id, !book.isFavorite)
                         .then((value) => print("Books added to Favorite! $value"),);
-                      },icon: Icon(Icons.favorite), label: Text("Favorites"))
+                        setState(() {});
+                      },icon: Icon(book.isFavorite
+                       ? Icons.favorite
+                       : Icons.favorite_border,
+                      color: book.isFavorite 
+                      ? Colors.red 
+                      : null,),
+                      label: Text(book.isFavorite 
+                      ? "Favorite" 
+                      : "Add to favorite"))
                     ],
                   ),
                 ),
