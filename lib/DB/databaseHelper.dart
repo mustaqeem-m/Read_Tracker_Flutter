@@ -3,7 +3,7 @@ import 'package:path/path.dart';
 import 'package:reader_tracker/models/book.dart';
 
 class DataBaseHelper {
-  static const _dataBaseName = 'books_dataBase.db';
+  static const _dataBaseName = 'book_dataBase.db';
   static const _dataBaseVersion = 1;
   static const _tableName = 'books';
 
@@ -61,4 +61,27 @@ class DataBaseHelper {
 
   }
 
+  Future<int> toggleFavoriteFlag(String id, bool isFavorite) async{
+    Database db = await instance.dataBase;
+    return await db.update(_tableName, {
+      'favorite': isFavorite ? 1 : 0
+    },
+    where: 'id = ?',
+    whereArgs: [id]);
+  }
+
+  Future<int> deleteBook(String id) async {
+    Database db = await instance.dataBase;
+    return db.delete(_tableName,
+    where: 'id=?',
+    whereArgs: [id]);
+  }
+  
+  Future<List<Book>> getFavorite() async{
+    Database db = await instance.dataBase;
+
+    var favBooks = await db.query(_tableName);
+    return favBooks.isNotEmpty ? favBooks.map((book) => Book.fromJsonDatabase(book)).toList() 
+    : [];
+  }
 }
