@@ -47,10 +47,9 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
                   Text("Language: ${book.language}",
                   style: theme.textTheme.bodySmall,),
                   SizedBox(height: 10,),
-                Row(
-                  mainAxisAlignment: !isFromSavedScreen ? MainAxisAlignment.spaceEvenly : MainAxisAlignment.center,
-                  children: [
-                    !isFromSavedScreen ? ElevatedButton.icon(onPressed: () async{
+
+                  SizedBox(
+                    child: !isFromSavedScreen ? ElevatedButton.icon(onPressed: () async{
                       try{
                         int savedInt = await DataBaseHelper.instance.insert(book);
                         SnackBar snackBar = SnackBar(
@@ -63,7 +62,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
                       }
                     }, 
                     icon: Icon(Icons.save),
-                    label:  Text("Save")) : const SizedBox(),
+                    label:  Text("Save")) : 
                     ElevatedButton.icon(onPressed: () async{
                       try{
                         await DataBaseHelper.instance.readAllBooks()
@@ -78,8 +77,40 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
                     }, 
                     icon: Icon(Icons.favorite),
                     label:  Text("Favorite")),
-                  ],
-                ),
+                  ),
+                // Row(
+                //   mainAxisAlignment: !isFromSavedScreen ? MainAxisAlignment.spaceEvenly : MainAxisAlignment.center,
+                //   children: [
+                //     !isFromSavedScreen ? ElevatedButton.icon(onPressed: () async{
+                //       try{
+                //         int savedInt = await DataBaseHelper.instance.insert(book);
+                //         SnackBar snackBar = SnackBar(
+                //           content: Text("Book Saved $savedInt") 
+                //         );
+                //         ScaffoldMessenger.of(context)
+                //         .showSnackBar(snackBar);
+                //       }catch(e){
+                //         print("Error $e");
+                //       }
+                //     }, 
+                //     icon: Icon(Icons.save),
+                //     label:  Text("Save")) : const SizedBox(),
+                //     ElevatedButton.icon(onPressed: () async{
+                //       try{
+                //         await DataBaseHelper.instance.readAllBooks()
+                //         .then((books) => {
+                //           for (var book in books ){
+                //             print("Title: ${book.title}")
+                //           }
+                //         });
+                //       }catch(e){
+                //         print("error $e");
+                //       }
+                //     }, 
+                //     icon: Icon(Icons.favorite),
+                //     label:  Text("Favorite")),
+                //   ],
+                // ),
                 SizedBox(height: 20,),
                 Text("Description",style: theme.textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),),
                 SizedBox(height: 10,),
