@@ -15,6 +15,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)?.settings.arguments as BookDetailsArguments; 
     final Book book = args.itemBook;
+    final bool isFromSavedScreen = args.isFromSavedScreen;
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -47,9 +48,9 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
                   style: theme.textTheme.bodySmall,),
                   SizedBox(height: 10,),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: !isFromSavedScreen ? MainAxisAlignment.spaceEvenly : MainAxisAlignment.center,
                   children: [
-                    ElevatedButton.icon(onPressed: () async{
+                    !isFromSavedScreen ? ElevatedButton.icon(onPressed: () async{
                       try{
                         int savedInt = await DataBaseHelper.instance.insert(book);
                         SnackBar snackBar = SnackBar(
@@ -62,7 +63,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
                       }
                     }, 
                     icon: Icon(Icons.save),
-                    label:  Text("Save")),
+                    label:  Text("Save")) : const SizedBox(),
                     ElevatedButton.icon(onPressed: () async{
                       try{
                         await DataBaseHelper.instance.readAllBooks()
